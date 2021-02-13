@@ -15,8 +15,7 @@ func setDb(g *gorm.DB) {
 
 func getDb() *gorm.DB {
     if db == nil {
-        db := &gorm.DB{}
-        container.Make(db)
+        container.Make(&db)
     }
     return db
 }
