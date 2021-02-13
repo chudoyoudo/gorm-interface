@@ -15,6 +15,8 @@ type Connection interface {
     Take(dest interface{}, conds ...interface{}) (tx *gorm.DB)
     Last(dest interface{}, conds ...interface{}) (tx *gorm.DB)
     Find(dest interface{}, conds ...interface{}) (tx *gorm.DB)
+    Limit(limit int) (tx *gorm.DB)
+    Offset(offset int) (tx *gorm.DB)
     FindInBatches(dest interface{}, batchSize int, fc func(tx *gorm.DB, batch int) error) *gorm.DB
     FirstOrInit(dest interface{}, conds ...interface{}) (tx *gorm.DB)
     FirstOrCreate(dest interface{}, conds ...interface{}) (tx *gorm.DB)
@@ -67,6 +69,21 @@ func (db *ConnectionMock) Last(dest interface{}, conds ...interface{}) (tx *gorm
 
 func (db *ConnectionMock) Find(dest interface{}, conds ...interface{}) (tx *gorm.DB) {
     args := db.Called(dest, conds)
+    return args.Get(0).(*gorm.DB)
+}
+
+func (db *ConnectionMock) Find(dest interface{}, conds ...interface{}) (tx *gorm.DB) {
+    args := db.Called(dest, conds)
+    return args.Get(0).(*gorm.DB)
+}
+
+func (db *ConnectionMock) Limit(limit int) (tx *gorm.DB) {
+    args := db.Called(limit)
+    return args.Get(0).(*gorm.DB)
+}
+
+func (db *ConnectionMock) Offset(offset int) (tx *gorm.DB) {
+    args := db.Called(offset)
     return args.Get(0).(*gorm.DB)
 }
 
