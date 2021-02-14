@@ -26,6 +26,7 @@ type Connection interface {
     First(dest interface{}, conds ...interface{}) Connection
     Last(dest interface{}, conds ...interface{}) Connection
     Find(dest interface{}, conds ...interface{}) Connection
+    Order(value interface{}) Connection
     Limit(limit int) Connection
     Offset(offset int) Connection
     Delete(value interface{}, conds ...interface{}) Connection
@@ -74,6 +75,12 @@ func (c *connection) Last(dest interface{}, conds ...interface{}) Connection {
 
 func (c *connection) Find(dest interface{}, conds ...interface{}) Connection {
     db := c.db.Find(dest, conds...)
+    c.db = db
+    return c
+}
+
+func (c *connection) Order(value interface{}) Connection {
+    db := c.db.Order(value)
     c.db = db
     return c
 }

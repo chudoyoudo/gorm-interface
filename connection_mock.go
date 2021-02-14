@@ -33,6 +33,11 @@ func (c *ConnectionMock) Last(dest interface{}, conds ...interface{}) Connection
     return args.Get(0).(Connection)
 }
 
+func (c *ConnectionMock) Order(value interface{}) Connection {
+    args := c.Called(value)
+    return args.Get(0).(Connection)
+}
+
 func (c *ConnectionMock) Find(dest interface{}, conds ...interface{}) Connection {
     args := c.Called(dest, conds)
     return args.Get(0).(Connection)
