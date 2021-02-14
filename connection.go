@@ -23,6 +23,7 @@ func getDb() *gorm.DB {
 type Connection interface {
     Create(value interface{}) Connection
     Save(value interface{}) Connection
+    Model(value interface{}) Connection
     Updates(values interface{}) Connection
     First(dest interface{}, conds ...interface{}) Connection
     Last(dest interface{}, conds ...interface{}) Connection
@@ -58,6 +59,12 @@ func (c *connection) Create(value interface{}) Connection {
 
 func (c *connection) Save(value interface{}) Connection {
     db := c.db.Save(value)
+    c.db = db
+    return c
+}
+
+func (c *connection) Model(value interface{}) Connection {
+    db := c.db.Model(value)
     c.db = db
     return c
 }

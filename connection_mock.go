@@ -23,6 +23,11 @@ func (c *ConnectionMock) Save(value interface{}) Connection {
     return args.Get(0).(Connection)
 }
 
+func (c *ConnectionMock) Model(value interface{}) Connection {
+    args := c.Called(value)
+    return args.Get(0).(Connection)
+}
+
 func (c *ConnectionMock) Updates(values interface{}) Connection {
     args := c.Called(values)
     return args.Get(0).(Connection)
