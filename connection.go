@@ -112,7 +112,7 @@ func (c *connection) Offset(offset int) Connection {
 }
 
 func (c *connection) Delete(value interface{}, conds ...interface{}) Connection {
-    db := c.db.Find(value, conds...)
+    db := c.db.Delete(value, conds...)
     c.db = db
     return c
 }
@@ -134,7 +134,7 @@ func (c *connection) Begin(opts ...*sql.TxOptions) Connection {
 }
 
 func (c *connection) Commit() Connection {
-    db := c.db.Begin()
+    db := c.db.Commit()
     c.db = db
     return c
 }
